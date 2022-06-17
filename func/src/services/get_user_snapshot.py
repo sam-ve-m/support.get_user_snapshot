@@ -24,7 +24,7 @@ class GetUserSnapshotService:
     warranty_snapshot_repository = WarrantySnapshotRepository
 
     @classmethod
-    def snapshot_user_data(cls, decoded_jwt: dict):
+    def snapshot_user_data(cls, decoded_jwt: dict) -> Snapshots:
         unique_id = decoded_jwt.get("user").get("unique_id")
         if not (user_data := cls.user_repository.find_user_by_unique_id(unique_id=unique_id)):
             raise ValueError("Unable to find user")  # TODO: melhorar excessão
