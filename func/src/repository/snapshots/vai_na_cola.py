@@ -11,9 +11,9 @@ class VaiNaColaSnapshotRepository:
     def _request_vnc_wallet_data(cls, bovespa_account: str) -> dict:
         return {
             "Carteira/Código": bovespa_account,
-            "Influencer": None,
-            "Tipo Influencer": None,
-            "Data de referência": None,
+            "Influencer": "Pendente de Definição",
+            "Tipo Influencer": "Pendente de Definição",
+            "Data de referência": "Pendente de Definição",
             "Rentabilidade Vai na Cola": "15%",
             "Desenquadrado": "05/06/2022"
         }

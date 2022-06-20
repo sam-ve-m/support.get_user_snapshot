@@ -43,18 +43,6 @@ def get_user_snapshot():
         )
         return response
 
-    except ValueError as ex:
-        Gladsheim.error(ex=ex, message=f'{message}::There are invalid format or extra parameters')
-        response_model = ResponseModel.build_error_response(
-            code=CodeResponse.INVALID_PARAMS,
-            message="There are invalid format or extra/missing parameters",
-        )
-        response = ResponseModel.build_http_response(
-            response_model=response_model,
-            status=HTTPStatus.BAD_REQUEST
-        )
-        return response
-
     except Exception as ex:
         Gladsheim.error(error=ex, message=f"{message}::{str(ex)}")
         response_model = ResponseModel.build_error_response(

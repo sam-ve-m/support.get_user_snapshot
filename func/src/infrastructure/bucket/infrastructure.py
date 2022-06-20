@@ -7,7 +7,6 @@ from etria_logger import Gladsheim
 
 class BucketInfrastructure:
     session = None
-    client = None
 
     @classmethod
     def _get_session(cls):
