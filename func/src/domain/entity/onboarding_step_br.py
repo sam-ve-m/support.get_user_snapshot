@@ -31,8 +31,7 @@ class OnboardingBR:
     @staticmethod
     def _user_suitability_step(current_user: dict):
         has_signed_suitability = bool(current_user.get("suitability"))
-        terms = current_user.get("terms")
-        has_signed_refusal_term = terms.get("term_refusal") is not None
+        has_signed_refusal_term = current_user.get("terms", {}).get("term_refusal") is not None
         stopped_in_suitability = not has_signed_suitability and not has_signed_refusal_term
         return stopped_in_suitability
 

@@ -33,17 +33,17 @@ class OnboardingUS:
 
     @staticmethod
     def _terms_step(current_user: dict):
-        user_terms = current_user.get("terms")
+        user_terms = current_user.get("terms", {})
         terms_that_needs_be_signed = {
-            TermsFileType.TERM_OPEN_ACCOUNT_DW.value,
-            TermsFileType.TERM_APPLICATION_DW.value,
-            TermsFileType.TERM_PRIVACY_POLICY_AND_DATA_SHARING_POLICY_DW.value,
-            TermsFileType.TERM_DISCLOSURES_AND_DISCLAIMERS.value,
-            TermsFileType.TERM_MONEY_CORP.value,
-            TermsFileType.TERM_GRINGO_WORLD.value,
-            TermsFileType.TERM_GRINGO_WORLD_GENERAL_ADVICES.value,
+            TermsFileType.TERM_OPEN_ACCOUNT_DW,
+            TermsFileType.TERM_APPLICATION_DW,
+            TermsFileType.TERM_PRIVACY_POLICY_AND_DATA_SHARING_POLICY_DW,
+            TermsFileType.TERM_DISCLOSURES_AND_DISCLAIMERS,
+            TermsFileType.TERM_MONEY_CORP,
+            TermsFileType.TERM_GRINGO_WORLD,
+            TermsFileType.TERM_GRINGO_WORLD_GENERAL_ADVICES,
         }
-        has_signed_terms = all(user_terms.get(term) for term in terms_that_needs_be_signed)
+        has_signed_terms = all(user_terms.get(term.value) for term in terms_that_needs_be_signed)
         return not has_signed_terms
 
     @classmethod
