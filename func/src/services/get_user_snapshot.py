@@ -13,29 +13,21 @@ from ..repository.user.repository import UserRepository
 
 
 class GetUserSnapshotService:
-    user_repository = UserRepository
-    pid_model = PID
-    onboarding_model = Onboarding
-    wallet_model = Wallet
-    vai_na_cola_model = VaiNaCola
-    blocked_assets_model = BlockedAssets
-    user_blocks_model = UserBlocks
-    warranty_assets_model = WarrantyAssets
-    warranty_model = Warranty
 
-    @classmethod
-    def snapshot_user_data(cls, decoded_jwt: dict) -> Snapshots:
+    @staticmethod
+    def snapshot_user_data(decoded_jwt: dict) -> Snapshots:
         unique_id = decoded_jwt.get("user").get("unique_id")
-        if not (user_data := cls.user_repository.find_user_by_unique_id(unique_id=unique_id)):
+        if not (user_data := UserRepository.find_user_by_unique_id(unique_id=unique_id)):
             raise ValueError("Unable to find user")  # TODO: melhorar excessão
+
         snapshots = Snapshots(
-            pid=cls.pid_model(user_data).get_snapshot(),
-            onboarding=cls.onboarding_model(user_data).get_snapshot(),
-            wallet=cls.wallet_model(user_data).get_snapshot(),
-            vai_na_cola=cls.vai_na_cola_model(user_data).get_snapshot(),
-            blocked_assets=cls.blocked_assets_model(user_data).get_snapshot(),
-            user_blocks=cls.user_blocks_model(user_data).get_snapshot(),
-            warranty_assets=cls.warranty_assets_model(user_data).get_snapshot(),
-            warranty=cls.warranty_model(user_data).get_snapshot(),
+            pid=PID(user_data).get_snapshot(),
+            onboarding=Onboarding(user_data).get_snapshot(),
+            wallet=Wallet(user_data).get_snapshot(),
+            vai_na_cola=VaiNaCola(user_data).get_snapshot(),
+            blocked_assets=BlockedAssets(user_data).get_snapshot(),
+            user_blocks=UserBlocks(user_data).get_snapshot(),
+            warranty_assets=WarrantyAssets(user_data).get_snapshot(),
+            warranty=Warranty(user_data).get_snapshot(),
         )
         return snapshots

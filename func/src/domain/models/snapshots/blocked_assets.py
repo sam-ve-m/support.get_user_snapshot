@@ -2,6 +2,8 @@ class BlockedAssets:
     def __init__(self, user_data: dict):
         self.__blocked_assets = self._request_blocked_assets(user_data)
 
+    # TODO: A request para os dados da carteira do vai na cola não deve ser realizada aqui dentro do model
+    # TODO: Esse dado deve vir como parâmetro da classe BlockedAssets
     def _request_blocked_assets(self, user_data: dict) -> list:
         blocked_assets = [{}] * 3
         return blocked_assets

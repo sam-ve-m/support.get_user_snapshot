@@ -1,5 +1,7 @@
+# TODO: Trocar o nome da classe para Portfolio
 class Wallet:
     def __init__(self, user_data: dict):
+        # TODO: Essa classe deve receber o portfolio a qual vai montar as posições, cada classe "Wallet" deve tratar unica e exclusivamente uma "Wallet"
         default_wallet = user_data.get('portfolios', {}).get('default', {})
         self.__wallet_id_br = default_wallet.get("br", {}).get("bovespa_account")
         self.__wallet_id_us = default_wallet.get("us", {}).get("dw_account")
@@ -15,12 +17,15 @@ class Wallet:
             for wallet_id in vnc_br_wallets_ids
         }
 
+    # TODO: Essa request não deve ser feita dentro do objeto de domínio, deve receber estes dados como parâmetro do __init__
     def _request_portfolio_br(self, wallet_id: str) -> list:
         return [{}, {}]
 
+    # TODO: Essa request não deve ser feita dentro do objeto de domínio, deve receber estes dados como parâmetro do __init__
     def _request_portfolio_us(self, wallet_id: str) -> list:
         return [{}, {}]
 
+    # TODO: Essa request não deve ser feita dentro do objeto de domínio, deve receber estes dados como parâmetro do __init__
     def _request_portfolio_vai_na_cola_br(self, wallet_id: str) -> list:
         return [{}, {}]
 
@@ -66,6 +71,7 @@ class Wallet:
         return normalized_portfolio_vai_na_cola_br
 
     def get_snapshot(self) -> list:
+        # TODO: Uma vez que a classe só trata um portolio por vez, deve-se fazer essa junção na camada de serviço com o retorno de cada "get_snapshot" por carteira
         snapshot = [
             *self.__normalize_portfolio_br(),
             *self.__normalize_portfolio_us(),
