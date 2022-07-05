@@ -12,7 +12,7 @@ from func.src.services.jwt import JwtService
 from func.src.domain.enums import CodeResponse
 from func.src.domain.exceptions import InvalidJwtToken
 from func.src.domain.response.model import ResponseModel
-from func.src.services.get_user_snapshot import GetUserSnapshotService
+from func.src.services.snapshot_builder import GetUserSnapshotService
 
 dummy_jwt = "jwt"
 dummy_decoded_jwt = "jwt"

@@ -1,17 +1,16 @@
-class WarrantyAssets:
-    def __init__(self, user_data: dict):
-        self.__warranty_assets = self._request_blocked_assets(user_data)
+from func.src.domain.validator import Wallet, Asset
 
-    def _request_blocked_assets(self, user_data: dict) -> list:
-        warranty_assets = [{}, {}, {}]
-        return warranty_assets
+
+class WarrantyAssets:
+    def __init__(self, warranty_wallet: Wallet):
+        self.__warranty_assets = warranty_wallet
 
     @staticmethod
-    def __normalize_assets(asset: dict) -> list:
+    def __normalize_assets(asset: Asset) -> list:
         normalized_asset = [
-            {"value": "Pendente de Definição", "label": "Ativo"},
-            {"value": "Pendente de Definição", "label": "Valor"},
-            {"value": "Pendente de Definição", "label": "Quantidade"},
+            {"value": asset.ticker, "label": "Ativo"},
+            {"value": asset.current_value, "label": "Valor"},
+            {"value": asset.current_quantity, "label": "Quantidade"},
         ]
         return normalized_asset
 

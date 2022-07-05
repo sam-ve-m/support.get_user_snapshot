@@ -1,13 +1,15 @@
-from func.src.domain.entity.onboarding_step_br import OnboardingBR
-from func.src.domain.entity.onboarding_step_us import OnboardingUS
-
-
 class Onboarding:
-    def __init__(self, user_data: dict):
-        self.__missed_steps_br = OnboardingBR.find_missing_step(user_data)
-        self.__date_br = "??/??/????"
-        self.__missed_steps_us = OnboardingUS.find_missing_step(user_data)
-        self.__date_us = "??/??/????"
+    def __init__(
+            self,
+            missed_steps_br: str,
+            date_of_missed_steps_br: str,
+            missed_steps_us: str,
+            date_of_missed_steps_us: str
+    ):
+        self.__missed_steps_br = missed_steps_br
+        self.__date_br = date_of_missed_steps_br
+        self.__missed_steps_us = missed_steps_us
+        self.__date_us = date_of_missed_steps_us
 
     def __normalize_missed_steps(self) -> list:
         missed_steps = [

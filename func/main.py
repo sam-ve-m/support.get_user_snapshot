@@ -6,11 +6,18 @@ from etria_logger import Gladsheim
 from flask import request
 
 # Jormungandr
-from func.src.services.jwt import JwtService
 from func.src.domain.enums import CodeResponse
 from func.src.domain.exceptions import InvalidJwtToken
 from func.src.domain.response.model import ResponseModel
-from func.src.services.get_user_snapshot import GetUserSnapshotService
+from func.src.services.jwt.service import JwtService
+from func.src.services.blocks.service import BlockService
+from func.src.services.get_user_data.service import GetUserDataService
+from func.src.services.missing_steps.service_br import GetMissingStepBR
+from func.src.services.missing_steps.service_us import GetMissingStepUS
+from func.src.services.portfolio.service import PortfolioService
+from func.src.services.snapshot_builder.service import SnapshotBuilderService
+from func.src.services.vai_na_cola.service import VaiNaColaService
+from func.src.services.warranty.service import WarrantyService
 
 
 def get_user_snapshot():
@@ -19,28 +26,36 @@ def get_user_snapshot():
     try:
         JwtService.apply_authentication_rules(jwt=jwt)
         decoded_jwt = JwtService.decode_jwt(jwt=jwt)
-        snapshots = GetUserSnapshotService.snapshot_user_data(decoded_jwt=decoded_jwt)
-        response_model = ResponseModel.build_response(
-            result=snapshots,
-            code=CodeResponse.SUCCESS,
-        )
+        user_data = GetUserDataService.get_user_data(decoded_jwt)
+        missed_steps_br = GetMissingStepBR(user_data).get_missing_step()
+        missed_steps_us = GetMissingStepUS(user_data).get_missing_step()
+        block_summary = BlockService.request_block_summary(user_data)
+        blocked_assets = BlockService.request_blocked_wallet(user_data)
+        warranty_summary = WarrantyService.request_warranty_summary(user_data)
+        warranty_assets = WarrantyService.request_warrantyed_wallet(user_data)
+        portfolio = PortfolioService.request_user_portfolio(user_data)
+        vnc_portfolio_report = VaiNaColaService.get_vai_na_cola_portfolio_report(portfolio)
 
-        response = ResponseModel.build_http_response(
-            response_model=response_model,
-            status=HTTPStatus.OK
-        )
+        snapshots = (
+            SnapshotBuilderService()
+            .set_pid(user_data)
+            .set_onboarding(missed_steps_br, missed_steps_us)
+            .set_wallet(portfolio)
+            .set_vai_na_cola(vnc_portfolio_report)
+            .set_blocked_assets(blocked_assets)
+            .set_user_blocks(block_summary)
+            .set_warranty_assets(warranty_assets)
+            .set_warranty(warranty_summary)
+        ).get_snapshot()
+
+        response_model = ResponseModel.build_response(result=snapshots, code=CodeResponse.SUCCESS)
+        response = ResponseModel.build_http_response(response_model=response_model, status=HTTPStatus.OK)
         return response
 
     except InvalidJwtToken as ex:
         Gladsheim.error(error=ex, message=f"{message}::Invalid JWT token")
-        response_model = ResponseModel.build_error_response(
-            code=CodeResponse.JWT_INVALID,
-            message=ex.msg,
-        )
-        response = ResponseModel.build_http_response(
-            response_model=response_model,
-            status=HTTPStatus.UNAUTHORIZED
-        )
+        response_model = ResponseModel.build_error_response(code=CodeResponse.JWT_INVALID, message=ex.msg)
+        response = ResponseModel.build_http_response(response_model=response_model, status=HTTPStatus.UNAUTHORIZED)
         return response
 
     except Exception as ex:

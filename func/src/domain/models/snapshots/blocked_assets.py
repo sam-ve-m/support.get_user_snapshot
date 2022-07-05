@@ -1,19 +1,16 @@
-class BlockedAssets:
-    def __init__(self, user_data: dict):
-        self.__blocked_assets = self._request_blocked_assets(user_data)
+from func.src.domain.validator import Wallet, Asset
 
-    # TODO: A request para os dados da carteira do vai na cola não deve ser realizada aqui dentro do model
-    # TODO: Esse dado deve vir como parâmetro da classe BlockedAssets
-    def _request_blocked_assets(self, user_data: dict) -> list:
-        blocked_assets = [{}] * 3
-        return blocked_assets
+
+class BlockedAssets:
+    def __init__(self, blocked_wallet: Wallet):
+        self.__blocked_assets = blocked_wallet
 
     @staticmethod
-    def __normalize_assets(asset: dict) -> list:
+    def __normalize_assets(asset: Asset) -> list:
         normalized_asset = [
-            {"value": "Pendente de Definição", "label": "Ativo"},
-            {"value": "Pendente de Definição", "label": "Preço Médio"},
-            {"value": "Pendente de Definição", "label": "Quantidade"},
+            {"value": asset.ticker, "label": "Ativo"},
+            {"value": asset.current_value, "label": "Valor"},
+            {"value": asset.current_quantity, "label": "Quantidade"},
         ]
         return normalized_asset
 

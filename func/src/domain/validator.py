@@ -1,21 +1,42 @@
-from typing import List, Any
 from pydantic import BaseModel
+from typing import List, Dict, Any, Optional
 
 
-class Cell(BaseModel):
-    label: str
-    value: Any
+class Asset(BaseModel):
+    ticker: str
+    mean_price: float
+    initial_quantity: int
+    current_quantity: Any
+    spent_value: int
+    current_value: Any
 
 
-Row = List[Cell]
+Wallet = List[Asset]
 
 
-class Snapshots(BaseModel):
-    pid: List[Cell]
-    onboarding: List[Row]
-    wallet: List[Row]
-    vai_na_cola: List[Row]
-    blocked_assets: List[Row]
-    user_blocks: List[Cell]
-    warranty_assets: List[Row]
-    warranty: List[Cell]
+class Portfolio(BaseModel):
+    wallet_id_br: Optional[str]
+    wallet_br: Wallet
+    wallet_id_us: Optional[str]
+    wallet_us: Wallet
+    wallets_vnc_br: Dict[str, Wallet]
+
+
+class VaiNaColaWalletReport(BaseModel):
+    id: str
+    influencer: str
+    influencer_type: str
+    report_date: str
+    profitability: str
+    rebalance_date: str
+
+
+class BlockSummary(BaseModel):
+    block_type: str
+    description: str
+    date: str
+    lawsuit_number: str
+
+
+class WarrantySummary(BaseModel):
+    available: str

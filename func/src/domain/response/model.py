@@ -1,5 +1,4 @@
 # Jormungandr
-from ..validator import Snapshots
 from ...domain.enums import CodeResponse
 
 # Standards
@@ -12,10 +11,10 @@ from nidavellir import Sindri
 
 class ResponseModel:
     @staticmethod
-    def build_response(result: Snapshots, code: CodeResponse) -> str:
+    def build_response(result: dict, code: CodeResponse) -> str:
         response_model = json.dumps(
             {
-                "result": result.dict(),
+                "result": result,
                 "code": code.value,
             },
             default=Sindri.resolver,

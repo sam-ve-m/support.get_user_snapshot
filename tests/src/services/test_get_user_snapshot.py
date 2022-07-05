@@ -4,7 +4,8 @@ from unittest.mock import MagicMock
 import pytest
 
 from func.src.domain.validator import Snapshots
-from func.src.services.get_user_snapshot import GetUserSnapshotService
+from func.src.repository.user.repository import UserRepository
+from func.src.services.snapshot_builder import GetUserSnapshotService
 from unittest.mock import patch
 
 
@@ -55,11 +56,7 @@ def test_snapshot_user_data(mocked_snapshot, monkeypatch):
     mocked_warranty.return_value.get_snapshot.assert_called_once_with()
 
 
+@patch.object(UserRepository, "find_user_by_unique_id", return_value=False)
 def test_snapshot_user_data_no_user(monkeypatch):
-    monkeypatch.setattr(
-        GetUserSnapshotService,
-        "user_repository",
-        MagicMock(find_user_by_unique_id=MagicMock(return_value=False))
-    )
     with pytest.raises(ValueError):
         GetUserSnapshotService.snapshot_user_data(dummy_decoded_jwt)
