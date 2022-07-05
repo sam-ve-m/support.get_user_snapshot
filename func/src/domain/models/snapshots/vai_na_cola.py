@@ -10,7 +10,7 @@ class VaiNaColaReport:
     @staticmethod
     def __normalize_vnc_wallet_report(wallet_report: VaiNaColaWalletReport) -> list:
         normalized_vnc_wallet_report = [
-            {"value": wallet_report._id, "label": "Carteira/Código"},
+            {"value": wallet_report.id, "label": "Carteira/Código"},
             {"value": "Pendente de Definição", "label": "Influencer"},
             {"value": "Pendente de Definição", "label": "Tipo Influencer"},
             {"value": "Pendente de Definição", "label": "Data de referência"},

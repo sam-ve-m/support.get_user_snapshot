@@ -1,30 +1,17 @@
-from func.src.domain.models.snapshots.vai_na_cola import VaiNaCola
-from unittest.mock import patch, call
-import pytest
+from unittest.mock import MagicMock
 
+from func.src.domain.models.snapshots.vai_na_cola import VaiNaColaReport
 
-dummy_bovespa_account = "159951"
-dummy_complete_user = {'portfolios': {'vnc': {'br': [{"bovespa_account": dummy_bovespa_account}]*3}}}
-dummy_empty_user = {}
-dummy_wallet = {}
-
-
-@pytest.fixture()
-def fake_vai_na_cola_model():
-    with patch.object(VaiNaCola, "_request_vnc_wallet_data", return_value=dummy_wallet):
-        return VaiNaCola(dummy_complete_user)
-
-
+dummy_empty_user = []
 expected_snapshot_empty = []
 
 
-@patch.object(VaiNaCola, "_request_vnc_wallet_data", return_value=dummy_wallet)
-def test_model_instance_empty(mocked_vai_na_cola_br):
-    snapshot = VaiNaCola(dummy_empty_user).get_snapshot()
-    mocked_vai_na_cola_br.assert_not_called()
+def test_model_instance_empty():
+    snapshot = VaiNaColaReport(dummy_empty_user).get_snapshot()
     assert snapshot == expected_snapshot_empty
 
 
+dummy_wallet = [MagicMock(id=None)]*3
 expected_snapshot = [[
         {'value': None, 'label': 'Carteira/Código'},
         {'value': 'Pendente de Definição', 'label': 'Influencer'},
@@ -49,8 +36,6 @@ expected_snapshot = [[
 ]]
 
 
-@patch.object(VaiNaCola, "_request_vnc_wallet_data", return_value=dummy_wallet)
-def test_model_instance(mocked_vai_na_cola_br):
-    snapshot = VaiNaCola(dummy_complete_user).get_snapshot()
-    mocked_vai_na_cola_br.assert_has_calls([call(dummy_bovespa_account)]*3)
+def test_model_instance():
+    snapshot = VaiNaColaReport(dummy_wallet).get_snapshot()
     assert snapshot == expected_snapshot

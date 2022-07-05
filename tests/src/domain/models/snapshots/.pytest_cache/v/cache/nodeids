@@ -1,0 +1,11 @@
+[
+  "test_blocked_assets.py::test_get_snapshot",
+  "test_onboarding.py::test_get_snapshot",
+  "test_user_blocks.py::test_get_snapshot",
+  "test_vai_na_cola.py::test_model_instance",
+  "test_vai_na_cola.py::test_model_instance_empty",
+  "test_wallet.py::test_snapshot",
+  "test_warranty.py::test_get_snapshot",
+  "test_warranty_assets.py::test_snapshot",
+  "test_warranty_assets.py::test_snapshot_empty"
+]

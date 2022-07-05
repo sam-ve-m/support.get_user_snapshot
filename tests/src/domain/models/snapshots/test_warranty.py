@@ -1,15 +1,15 @@
-from func.src.domain.models.snapshots.warranty import Warranty
-from unittest.mock import patch
+from unittest.mock import MagicMock
+
 import pytest
 
+from func.src.domain.models.snapshots.warranty import Warranty
+
 dummy_user = {}
-dummy_missed_step_br = "Missed Step BR"
-dummy_missed_step_us = "Missed Step Us"
 
 
 @pytest.fixture()
 def fake_warranty_model():
-    return Warranty(dummy_user)
+    return Warranty(MagicMock(available="Pendente de Definição"))
 
 
 expected_snapshot = [{'value': 'Pendente de Definição', 'label': 'Disponível em Garantia'}]

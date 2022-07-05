@@ -17,9 +17,9 @@ class BlockService:
     def request_blocked_wallet(cls, user_data: dict) -> Wallet:
         blocked_wallet = [Asset(
             ticker="Pendente de Definição",
-            mean_price=15.45,
+            mean_price="Pendente de Definição",
             initial_quantity=10,
-            current_quantity="Pendente de Definição",
+            current_quantity=100,
             spent_value=154.50,
             current_value="Pendente de Definição",
         )]*2

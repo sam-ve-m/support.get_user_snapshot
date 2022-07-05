@@ -6,8 +6,8 @@ import pytest
 from heimdall_client import Heimdall
 
 
-from func.src.services.jwt import JwtService
 from func.src.domain.exceptions import InvalidJwtToken
+from func.src.services.jwt.service import JwtService
 
 dummy_jwt = "jwt"
 dummy_decoded_jwt = {"value": 1}

@@ -4,7 +4,7 @@ from typing import List, Dict, Any, Optional
 
 class Asset(BaseModel):
     ticker: str
-    mean_price: float
+    mean_price: Any
     initial_quantity: int
     current_quantity: Any
     spent_value: int

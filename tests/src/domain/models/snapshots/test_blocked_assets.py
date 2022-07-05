@@ -1,26 +1,19 @@
+from unittest.mock import MagicMock
+
 from func.src.domain.models.snapshots.blocked_assets import BlockedAssets
-from unittest.mock import patch
 import pytest
 
-dummy_user = {}
-dummy_blocked_assets = [{}, {}, {}]
+
+dummy_blocked_assets = [MagicMock(
+    ticker="Pendente de Definição",
+    mean_price="Pendente de Definição",
+    current_quantity="Pendente de Definição",
+)]*3
 
 
 @pytest.fixture()
 def fake_blocked_assets_model():
-    with patch.object(BlockedAssets, "_request_blocked_assets", return_value=dummy_blocked_assets):
-        return BlockedAssets(dummy_user)
-
-
-@patch.object(BlockedAssets, "_request_blocked_assets")
-def test_model_instance(mocked_request):
-    BlockedAssets(dummy_user)
-    mocked_request.assert_called_once_with(dummy_user)
-
-
-def test_request_blocked_assets(fake_blocked_assets_model):
-    blocked_assets = fake_blocked_assets_model._request_blocked_assets(dummy_user)
-    assert dummy_blocked_assets == blocked_assets
+    return BlockedAssets(dummy_blocked_assets)
 
 
 expected_snapshot = [[

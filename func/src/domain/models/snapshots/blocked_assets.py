@@ -9,7 +9,7 @@ class BlockedAssets:
     def __normalize_assets(asset: Asset) -> list:
         normalized_asset = [
             {"value": asset.ticker, "label": "Ativo"},
-            {"value": asset.current_value, "label": "Valor"},
+            {"value": asset.mean_price, "label": "Preço Médio"},
             {"value": asset.current_quantity, "label": "Quantidade"},
         ]
         return normalized_asset
