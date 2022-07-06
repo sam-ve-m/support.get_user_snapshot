@@ -4,7 +4,7 @@ from func.src.domain.validator import Wallet, BlockSummary, Asset
 class BlockService:
 
     @classmethod
-    def request_block_summary(cls, user_data: dict) -> BlockSummary:
+    def get_block_summary(cls, user_data: dict) -> BlockSummary:
         block_summary = BlockSummary(
             block_type="Pendente de Definição",
             description="Pendente de Definição",
@@ -14,7 +14,7 @@ class BlockService:
         return block_summary
 
     @classmethod
-    def request_blocked_wallet(cls, user_data: dict) -> Wallet:
+    def get_blocked_wallet(cls, user_data: dict) -> Wallet:
         blocked_wallet = [Asset(
             ticker="Pendente de Definição",
             mean_price="Pendente de Definição",

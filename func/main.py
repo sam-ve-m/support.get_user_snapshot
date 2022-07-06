@@ -29,11 +29,11 @@ def get_user_snapshot():
         user_data = GetUserDataService.get_user_data(decoded_jwt)
         missed_steps_br = GetMissingStepBR(user_data).get_missing_step()
         missed_steps_us = GetMissingStepUS(user_data).get_missing_step()
-        block_summary = BlockService.request_block_summary(user_data)
-        blocked_assets = BlockService.request_blocked_wallet(user_data)
-        warranty_summary = WarrantyService.request_warranty_summary(user_data)
-        warranty_assets = WarrantyService.request_warrantyed_wallet(user_data)
-        portfolio = PortfolioService.request_user_portfolio(user_data)
+        block_summary = BlockService.get_block_summary(user_data)
+        blocked_assets = BlockService.get_blocked_wallet(user_data)
+        warranty_summary = WarrantyService.get_warranty_summary(user_data)
+        warranty_assets = WarrantyService.get_warrantyed_wallet(user_data)
+        portfolio = PortfolioService.get_user_portfolio(user_data)
         vnc_portfolio_report = VaiNaColaService.get_vai_na_cola_portfolio_report(portfolio)
 
         snapshots = (

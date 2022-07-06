@@ -4,14 +4,14 @@ from func.src.domain.validator import Wallet, Asset, WarrantySummary
 class WarrantyService:
 
     @classmethod
-    def request_warranty_summary(cls, user_data: dict) -> WarrantySummary:
+    def get_warranty_summary(cls, user_data: dict) -> WarrantySummary:
         warranty_summary = WarrantySummary(
             available="Pendente de Definição",
         )
         return warranty_summary
 
     @classmethod
-    def request_warrantyed_wallet(cls, user_data: dict) -> Wallet:
+    def get_warrantyed_wallet(cls, user_data: dict) -> Wallet:
         warrantyed_wallet = [Asset(
             ticker="Pendente de Definição",
             mean_price=15.45,

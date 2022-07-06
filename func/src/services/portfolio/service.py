@@ -3,7 +3,7 @@ from func.src.domain.validator import Wallet, Portfolio, Asset
 
 class PortfolioService:
     @classmethod
-    def request_user_portfolio(cls, user_data) -> Portfolio:
+    def get_user_portfolio(cls, user_data) -> Portfolio:
         br_wallet_id = cls._find_wallet_id_br(user_data)
         br_wallet = cls._request_wallet_br(br_wallet_id)
         us_wallet_id = cls._find_wallet_id_us(user_data)
