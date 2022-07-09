@@ -2,26 +2,17 @@
 from func.src.domain.exceptions import InvalidJwtToken
 
 # Third party
-from heimdall_client import Heimdall
-from asyncio import get_event_loop
+from heimdall_client import Heimdall, HeimdallStatusResponses
 
 
 class JwtService:
-    event_loop = get_event_loop()
-
     @classmethod
-    def decode_jwt(cls, jwt: str) -> dict:
-        jwt_content, heimdall_status_response = cls.event_loop.run_until_complete(
-            Heimdall.decode_payload(jwt=jwt))
-        decoded_jwt = jwt_content["decoded_jwt"]
-        if not decoded_jwt:
-            raise InvalidJwtToken()
-        return decoded_jwt
-
-    @classmethod
-    def apply_authentication_rules(cls, jwt: str):
-        is_valid_jwt = cls.event_loop.run_until_complete(
-            Heimdall.validate_jwt(jwt=jwt)
-        )
+    async def get_valid_jwt_content(cls, jwt: str) -> dict:
+        is_valid_jwt = await Heimdall.validate_jwt(jwt=jwt)
         if not is_valid_jwt:
-            raise InvalidJwtToken()
+            raise InvalidJwtToken("Invalid token")
+        jwt_content, heimdall_status_response = await Heimdall.decode_payload(jwt=jwt)
+        if heimdall_status_response != HeimdallStatusResponses.SUCCESS:
+            raise InvalidJwtToken("Fail to decode jwt")
+        content = jwt_content["decoded_jwt"]
+        return content

@@ -9,17 +9,17 @@ class UserRepository:
     mongo_infra = MongoInfrastructure
 
     @classmethod
-    def _get_collection(cls, collection: dict):
+    def _get_collection(cls):
         mongo_client = cls.mongo_infra.get_connection()
-        user_mongodb_database = mongo_client.get_database(config("USER_MONGODB_DATABASE"))
-        user_mongodb_collection = user_mongodb_database.get_collection(collection)
+        user_mongodb_database = mongo_client[config("USER_MONGODB_DATABASE")]
+        user_mongodb_collection = user_mongodb_database[config("USER_MONGODB_COLLECTION")]
         return user_mongodb_collection
 
     @classmethod
-    def find_user_by_unique_id(cls, unique_id: int) -> Optional[dict]:
-        collection = cls._get_collection(config("USER_MONGODB_COLLECTION"))
+    async def find_user_by_unique_id(cls, unique_id: str, projection=None) -> dict:
+        collection = cls._get_collection()
         try:
-            user = collection.find_one({"unique_id": unique_id})
+            user = await collection.find_one({"unique_id": unique_id}, projection=projection)
             return user
         except Exception as ex:
             Gladsheim.error(

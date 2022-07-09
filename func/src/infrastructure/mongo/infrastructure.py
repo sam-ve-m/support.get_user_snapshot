@@ -1,6 +1,6 @@
 from etria_logger import Gladsheim
 from decouple import config
-import pymongo
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class MongoInfrastructure:
@@ -10,11 +10,13 @@ class MongoInfrastructure:
     def get_connection(cls):
         if cls.client is None:
             try:
-                cls.client = pymongo.MongoClient(config("MONGO_CLIENT_URL"))
+                url = config("MONGO_CLIENT_URL")
+                cls.client = AsyncIOMotorClient(url)
             except Exception as ex:
                 Gladsheim.error(
                     error=ex,
-                    message=f"MongoInfrastructure::get_connection::Error trying to get Mongo Client",
+                    message=f"{__class__}::get_connection::Error trying to get Mongo Client",
                 )
                 raise ex
         return cls.client
+
