@@ -1,0 +1,35 @@
+apiVersion: fission.io/v1
+kind: Environment
+metadata:
+  creationTimestamp: null
+  name: get-user-snapshot-env
+  namespace: default
+spec:
+  builder:
+    command: build
+    container:
+      name: ""
+      resources: {}
+    image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
+  imagepullsecret: ""
+  keeparchive: false
+  poolsize: 3
+  resources: {}
+  runtime:
+    container:
+      name: ""
+      resources: {}
+    image: nexus.sigame.com.br/python-env-3.8:0.0.5
+    podspec:
+      containers:
+        - name: get-user-snapshot-env
+          env:
+            - name: MONGO_CLIENT_URL
+              value: "mongodb://jormungandr:MMhsdanNNds32Malmnwqyrte@172.30.18.223:41000,172.30.19.240:41000,172.30.19.71:41000/?authSource=admin&replicaSet=rslionx&readPreference=secondary&ssl=false"
+            - name: USER_MONGODB_DATABASE
+              value: "lionx"
+            - name: USER_MONGODB_COLLECTION
+              value: "users"
+            - name: ONBOARDING_STEPS_BASE_URL
+              value: "https://dev.api.siga.me/router"
+  version: 2
