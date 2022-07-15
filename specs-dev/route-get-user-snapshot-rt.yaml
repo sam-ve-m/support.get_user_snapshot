@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /get_user_snapshot
+    path: /support/get_user_snapshot
     tls: ""
   method: ""
   methods:
   - GET
   prefix: ""
-  relativeurl: /get_user_snapshot
+  relativeurl: /support/get_user_snapshot
