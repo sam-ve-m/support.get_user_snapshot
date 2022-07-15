@@ -19,7 +19,7 @@ spec:
     container:
       name: ""
       resources: {}
-    image: nexus.sigame.com.br/python-env-3.8:0.0.5
+    image: nexus.sigame.com.br/fission-async:0.1.6
     podspec:
       containers:
         - name: get-user-snapshot-env
@@ -46,4 +46,10 @@ spec:
               value: "/5pswHkrCgWhMYrV7TM7oVm8VtulfzdYKE2rlS8"
             - name: HEIMDALL_JWT_REQUIRED_FIELDS
               value: "[]"
+            - name: ROOT_LOG_LEVEL
+              value: "INFO"
+            - name: ETRIA_LOG_LEVEL
+              value: "INFO"
+            - name: ASGI_FRAMEWORK
+              value: "HYPERCORN"
   version: 2
