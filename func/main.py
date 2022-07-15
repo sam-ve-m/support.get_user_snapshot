@@ -2,19 +2,18 @@
 from http import HTTPStatus
 
 # Third party
-from flask import Flask
 from etria_logger import Gladsheim
 from flask import request
 
 
 # Jormungandr
-from func.src.domain.enums import CodeResponse
-from func.src.domain.exceptions import InvalidJwtToken
-from func.src.domain.response import ResponseModel
-from func.src.services.jwt import JwtService
-from func.src.services.user import UserService
-from func.src.services.onboarding import OnboardingStepService
-from func.src.services.portfolio import PortfolioService
+from src.domain.enums import CodeResponse
+from src.domain.exceptions import InvalidJwtToken
+from src.domain.response import ResponseModel
+from src.services.jwt import JwtService
+from src.services.user import UserService
+from src.services.onboarding import OnboardingStepService
+from src.services.portfolio import PortfolioService
 
 
 async def get_user_snapshot():

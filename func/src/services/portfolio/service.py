@@ -1,4 +1,4 @@
-from func.src.services.user.service import UserService
+from ...services.user.service import UserService
 
 
 class PortfolioService:

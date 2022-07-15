@@ -1,5 +1,5 @@
-from func.src.domain.exceptions import UserNotFound
-from func.src.repository.user.repository import UserRepository
+from ...domain.exceptions import UserNotFound
+from ...repository.user.repository import UserRepository
 
 
 class UserService:

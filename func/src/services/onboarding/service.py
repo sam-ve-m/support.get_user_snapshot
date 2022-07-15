@@ -1,6 +1,6 @@
 import asyncio
 
-from func.src.transports.onboarding import OnboardingTransport
+from ...transports.onboarding import OnboardingTransport
 
 
 class OnboardingStepService:
