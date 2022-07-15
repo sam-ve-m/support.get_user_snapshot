@@ -4,4 +4,4 @@
 apiVersion: fission.io/v1
 kind: DeploymentConfig
 name: support-get-user-snapshot
-uid: bda7f138-c34c-4956-bfc4-03fa802438a7
+uid: ed6029b6-b25e-40ca-8ee1-68e9f7147a57

@@ -7,19 +7,13 @@ metadata:
 spec:
   builder:
     command: build
-    container:
-      name: ""
-      resources: {}
     image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
   imagepullsecret: ""
   keeparchive: false
   poolsize: 3
   resources: {}
   runtime:
-    container:
-      name: ""
-      resources: {}
-    image: nexus.sigame.com.br/python-env-3.8:0.0.5
+    image: nexus.sigame.com.br/fission-async:0.1.6
     podspec:
       containers:
         - name: get-user-snapshot-env
@@ -32,4 +26,6 @@ spec:
               value: "users"
             - name: ONBOARDING_STEPS_BASE_URL
               value: "https://dev.api.siga.me/router"
+            - name: ASGI_FRAMEWORK
+              value: "HYPERCORN"
   version: 2

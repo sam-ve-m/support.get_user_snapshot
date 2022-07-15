@@ -1,14 +1,14 @@
 include:
 - ./func/*
 kind: ArchiveUploadSpec
-name: func-Mxew
+name: func-eZH6
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: get-user-snapshot-fn-044c6abc-4fff-44a9-a96b-c693338e06eb
+  name: get-user-snapshot-fn-d612fe9d-4d56-4d70-b714-0c2778b55600
   namespace: default
 spec:
   deployment:
@@ -19,10 +19,10 @@ spec:
   source:
     checksum: {}
     type: url
-    url: archive://func-Mxew
+    url: archive://func-eZH6
 status:
   buildstatus: pending
-  lastUpdateTimestamp: "2022-07-15T19:03:04Z"
+  lastUpdateTimestamp: "2022-07-15T19:43:22Z"
 
 ---
 apiVersion: fission.io/v1
@@ -34,11 +34,11 @@ metadata:
 spec:
   InvokeStrategy:
     ExecutionStrategy:
-      ExecutorType: newdeploy
-      MaxScale: 1
-      MinScale: 1
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
       SpecializationTimeout: 120
-      TargetCPUPercent: 80
+      TargetCPUPercent: 0
     StrategyType: execution
   concurrency: 500
   environment:
@@ -49,7 +49,7 @@ spec:
   package:
     functionName: main.get_user_snapshot
     packageref:
-      name: get-user-snapshot-fn-044c6abc-4fff-44a9-a96b-c693338e06eb
+      name: get-user-snapshot-fn-d612fe9d-4d56-4d70-b714-0c2778b55600
       namespace: default
   requestsPerPod: 1
   resources: {}
