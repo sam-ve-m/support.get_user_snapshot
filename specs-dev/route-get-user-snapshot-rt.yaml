@@ -1,0 +1,23 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: get-user-snapshot-rt
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    functionweights: null
+    name: get-user-snapshot-fn
+    type: name
+  host: ""
+  ingressconfig:
+    annotations: null
+    host: '*'
+    path: /support/get-user-snapshot
+    tls: ""
+  method: ""
+  methods:
+  - GET
+  prefix: ""
+  relativeurl: /support/get-user-snapshot
