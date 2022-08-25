@@ -31,7 +31,7 @@ spec:
             - name: USER_MONGODB_COLLECTION
               value: "users"
             - name: ONBOARDING_STEPS_BASE_URL
-              value: "https://dev.api.siga.me/router"
+              value: "http://router.fission.svc.cluster.local"
             - name: HEIMDALL_REDIS_URL
               value: "redis://heimdal:LLOnmUUffhaUHnewIz@172.30.11.235:6379?db=1"
             - name: HEIMDALL_REGION_NAME
