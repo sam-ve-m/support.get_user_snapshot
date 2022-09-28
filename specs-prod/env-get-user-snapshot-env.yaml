@@ -42,7 +42,7 @@ spec:
             - name: HEIMDALL_AWS_SECRET_ACCESS_KEY
               value: "/5pswHkrCgWhMYrV7TM7oVm8VtulfzdYKE2rlS8"
             - name: HEIMDALL_REDIS_URL
-              value: "redis://heimdal:FAhjlkyrliu6789032hgBfda@172.20.26.230:6379?db=1"
+              value: "redis://heimdal:FAhjlkyrliu6789032hgBfda@172.20.26.230:6380?db=1"
             - name: HEIMDALL_JWT_REQUIRED_FIELDS
               value: "[]"
   version: 3
