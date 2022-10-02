@@ -45,4 +45,6 @@ spec:
               value: "redis://heimdal:FAhjlkyrliu6789032hgBfda@172.20.26.230:6379?db=1"
             - name: HEIMDALL_JWT_REQUIRED_FIELDS
               value: "[]"
+            - name: ASGI_FRAMEWORK
+              value: HYPERCORN
   version: 3
