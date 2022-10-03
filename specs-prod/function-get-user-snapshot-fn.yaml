@@ -51,5 +51,5 @@ spec:
     packageref:
       name: get-user-snapshot-fn-68eda265-9435-4d03-a4a9-a97259f9fa6d
       namespace: default
-  requestsPerPod: 1
+  requestsPerPod: 10000
   resources: {}
