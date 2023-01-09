@@ -1,5 +1,4 @@
-#!/bin/bash
 fission spec init
-fission env create --spec --name get-user-snapshot-env --image nexus.sigame.com.br/fission-async:0.1.6 --builder nexus.sigame.com.br/fission-builder-3.8:0.0.1
-fission fn create --spec --name get-user-snapshot-fn --env get-user-snapshot-env --src "./func/*" --entrypoint main.get_user_snapshot --executortype newdeploy --maxscale 1
-fission route create --spec --name get-user-snapshot-rt --method GET --url /support/get-user-snapshot --function get-user-snapshot-fn
+fission env create --spec --name sup-tckt-snapshot-env --image nexus.sigame.com.br/fission-support-ticket-snapshot:0.1.0-1 --poolsize 0 --version 3 --imagepullsecret "nexus-v3" --spec
+fission fn create --spec --name sup-tckt-snapshot-fn --env sup-tckt-snapshot-env --code fission.py --targetcpu 80 --executortype newdeploy --maxscale 3 --requestsperpod 10000 --spec
+fission route create --spec --name sup-tckt-snapshot-rt --method GET --url /support/get-user-snapshot --function sup-tckt-snapshot-fn
