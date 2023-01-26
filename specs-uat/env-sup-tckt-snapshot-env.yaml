@@ -5,17 +5,17 @@ metadata:
   name: sup-tckt-snapshot-env
   namespace: default
 spec:
-  builder:
-    container:
-      name: ""
-      resources: {}
   imagepullsecret: nexus-v3
   keeparchive: false
-  resources: {}
+  poolsize: 2
+  resources:
+    requests:
+      cpu: 128m
+      memory: 128Mi
+    limits:
+      cpu: 256m
+      memory: 256Mi
   runtime:
-    container:
-      name: ""
-      resources: {}
     image: nexus.sigame.com.br/fission-support-ticket-snapshot:0.1.0-1
     podspec:
       containers:
@@ -45,4 +45,5 @@ spec:
               value: "[]"
             - name: ASGI_FRAMEWORK
               value: HYPERCORN
+  terminationGracePeriod: 3
   version: 3
