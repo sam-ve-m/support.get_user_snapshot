@@ -43,6 +43,10 @@ spec:
               value: "redis://heimdal:FBJAnjkqw21yjewkDSA@172.30.19.183:6379?db=1"
             - name: HEIMDALL_JWT_REQUIRED_FIELDS
               value: "[]"
+            - name: ROOT_LOG_LEVEL
+              value: "INFO"
+            - name: ETRIA_LOG_LEVEL
+              value: "INFO"
             - name: ASGI_FRAMEWORK
               value: HYPERCORN
   terminationGracePeriod: 3
